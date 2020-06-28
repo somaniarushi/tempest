@@ -63,7 +63,10 @@ class Display extends React.Component {
     for (var item of this.props.texts) {
       if (this.state.group === "default" || item.category === this.state.group) {
        const date = new Date(item.time)
-       const dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() +  " " + date.getUTCHours() + ":" + date.getMinutes() + " " + (date.getHours > 12 ? "AM" : "PM"); 
+       const dateString = (
+         date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() + 
+          " " + date.getUTCHours() + ":" + date.getMinutes() + 
+          " " + (date.getHours > 12 ? "AM" : "PM")); 
         input.push(
         <div>
           <p className="date">{dateString}</p>
