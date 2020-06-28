@@ -7,7 +7,6 @@ class App extends React.Component {
     super(props);
     console.log(localStorage.getItem('list'))
     this.state = {value: '', 
-                  // texts: localStorage.getItem('list') === null ? [] : JSON.parse(localStorage.getItem('list')), 
                   texts: localStorage.getItem('list') === null ? [] : JSON.parse(localStorage.getItem('list')), 
                   group: "Thoughts"};
 
