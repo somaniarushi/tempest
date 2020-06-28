@@ -5,10 +5,16 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', texts: []};
+    this.state = {value: '', texts: [], group: "None"};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  handleSelect(event) {
+    this.state.group = event.target.value;
+    this.setState((prevState) => ({group: prevState.group}));
   }
 
   handleChange(event) {
@@ -16,8 +22,8 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
-    // alert('A name was submitted: ' + this.state.value);
-    this.state.texts.push(this.state.value)
+    let input = {text: this.state.value, time: Date(), category: this.state.group}
+    this.state.texts.push(input)
     this.state.value = ""
     this.setState(
       (prevState) => ({texts: prevState.texts, value: prevState.value}));
@@ -25,17 +31,58 @@ class App extends React.Component {
   }
 
   render() {
+    constructor(props) {
+      super(props);
+      this.state = {value: '', texts: [], group: "None"};
+  
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSelect = this.handleSelect.bind(this);
+    }
+    
     return (
-      <form onSubmit={this.handleSubmit}>
+        <>
+          <Submitter 
+              group={this.state.group} 
+              value={this.state.value} 
+              handleChange={this.handleChange} 
+              handleSubmit={this.handleSubmit}
+              handleSelect={this.handleSelect}
+            />
+          <Display texts={this.state.texts}/>
+      </>
+    );
+  }
+}
+
+class Display extends React.Component {
+  render() {
+    <select value={this.props.group} onChange={this.props.handleSelect}>
+    <option value="default">Thoughts</option>
+    <option value="questions">Questions</option>
+    <option value="concerns">Concerns</option>
+    <option value="resources">Resources</option>
+    <option value="ideas">Ideas</option>
+  </select>
+  }
+}
+
+
+
+class Submitter extends React.Component {
+  render() {
+    return (
+      <form onSubmit={this.props.handleSubmit}>
         <label>
           Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-          {/* <select value={this.state.value} onChange={this.handleChange}>
-            <option value="grapefruit">Grapefruit</option>
-            <option value="lime">Lime</option>
-            <option value="coconut">Coconut</option>
-            <option value="mango">Mango</option>
-          </select> */}
+          <input type="text" value={this.props.value} onChange={this.props.handleChange} />
+          <select value={this.props.group} onChange={this.props.handleSelect}>
+            <option value="default">Thoughts</option>
+            <option value="questions">Questions</option>
+            <option value="concerns">Concerns</option>
+            <option value="resources">Resources</option>
+            <option value="ideas">Ideas</option>
+          </select>
         </label>
         <input type="submit" value="Submit" />
       </form>
