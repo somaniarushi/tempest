@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -31,15 +31,6 @@ class App extends React.Component {
   }
 
   render() {
-    constructor(props) {
-      super(props);
-      this.state = {value: '', texts: [], group: "None"};
-  
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleSelect = this.handleSelect.bind(this);
-    }
-    
     return (
         <>
           <Submitter 
@@ -56,14 +47,43 @@ class App extends React.Component {
 }
 
 class Display extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {group: 'default'}
+
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  handleSelect(event) {
+    this.setState({group: event.target.value});
+  }
+
   render() {
-    <select value={this.props.group} onChange={this.props.handleSelect}>
-    <option value="default">Thoughts</option>
-    <option value="questions">Questions</option>
-    <option value="concerns">Concerns</option>
-    <option value="resources">Resources</option>
-    <option value="ideas">Ideas</option>
-  </select>
+    const input = []
+    for (var item of this.props.texts) {
+      input.push(
+        <div>
+          <p>{item.time}</p>
+          <p>{item.text}</p>
+          <p>{item.category}</p>
+      </div>
+      );
+    }
+    console.log(input)
+      return (
+        <>
+          <select value={this.state.group} onChange={this.handleSelect}>
+            <option value="default">Thoughts</option>
+            <option value="questions">Questions</option>
+            <option value="concerns">Concerns</option>
+            <option value="resources">Resources</option>
+            <option value="ideas">Ideas</option>
+          </select>
+          {input}
+        {/* <p>{input}</p> */}
+        </>
+          
+          );
   }
 }
 
