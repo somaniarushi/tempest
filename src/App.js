@@ -5,7 +5,7 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', texts: [], group: "None"};
+    this.state = {value: '', texts: [], group: "Thoughts"};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,13 +61,15 @@ class Display extends React.Component {
   render() {
     const input = []
     for (var item of this.props.texts) {
+      if (this.state.group === "default" || item.category === this.state.group) {
       input.push(
         <div>
-          <p>{item.time}</p>
-          <p>{item.text}</p>
-          <p>{item.category}</p>
+          <p className="date">{item.time}</p>
+          <p className="text">{item.text}</p>
+          <p className="category">{item.category}</p>
       </div>
       );
+      }
     }
     console.log(input)
       return (
@@ -80,7 +82,6 @@ class Display extends React.Component {
             <option value="ideas">Ideas</option>
           </select>
           {input}
-        {/* <p>{input}</p> */}
         </>
           
           );
