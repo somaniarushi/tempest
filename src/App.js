@@ -5,7 +5,11 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', texts: [], group: "Thoughts"};
+    console.log(localStorage.getItem('list'))
+    this.state = {value: '', 
+                  // texts: localStorage.getItem('list') === null ? [] : JSON.parse(localStorage.getItem('list')), 
+                  texts: localStorage.getItem('list') === null ? [] : JSON.parse(localStorage.getItem('list')), 
+                  group: "Thoughts"};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,6 +29,7 @@ class App extends React.Component {
     let input = {text: this.state.value, time: Date(), category: this.state.group}
     this.state.texts.push(input)
     this.state.value = ""
+    localStorage.setItem('list', JSON.stringify(this.state.texts))
     this.setState(
       (prevState) => ({texts: prevState.texts, value: prevState.value}));
     event.preventDefault();
@@ -76,7 +81,6 @@ class Display extends React.Component {
       );
       }
     }
-    console.log(input)
       return (
         <>
           <select value={this.state.group} onChange={this.handleSelect}>
