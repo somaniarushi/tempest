@@ -7,9 +7,8 @@ import Display from './display';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    console.log(localStorage.getItem('list'))
     this.state = {value: '', 
-                  texts: localStorage.getItem('list') === null ? [] : JSON.parse(localStorage.getItem('list')), 
+                  texts: [],
                   group: "Thoughts", 
                   project: "all"
                   };
@@ -40,7 +39,6 @@ class App extends React.Component {
     let input = {text: this.state.value, time: Date(), category: this.state.group, project: this.state.project}
     this.state.texts.push(input)
     this.state.value = ""
-    localStorage.setItem('list', JSON.stringify(this.state.texts))
     this.setState(
       (prevState) => ({texts: prevState.texts, value: prevState.value}));
     event.preventDefault();
