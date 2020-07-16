@@ -1,0 +1,36 @@
+{
+    "codestorm":[
+        {
+            "name": "add json",
+            "time": "some timestamp",
+            "description": "",
+            "category": "thoughts",
+            "children": [
+                {
+                    "name": "design json",
+                    "time": "some timestamp",
+                    "category": "tasks",
+                    "description": "",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "implement in js",
+            "time": "some timestamp",
+            "category": "thoughts",
+            "description": "",
+            "children": []
+        }
+    ],
+    "real color picker":[
+        {
+            "name": "",
+            "time": "timestamp",
+            "category": "ideas",
+            "description": "",
+            "children": []
+        }
+    ],
+    "cs61a pr bot":[]
+}
