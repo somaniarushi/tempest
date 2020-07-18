@@ -21,7 +21,7 @@ class App extends React.Component {
     super(props);
     this.state = {
                   tree: {"default": []},
-                  tags: ["thoughts", "questions", "concerns", "resources", "ideas"],
+                  tags: ["thoughts", "questions", "concerns", "resources", "ideas", "all"],
                   projects: ["default"],
                   };
 
