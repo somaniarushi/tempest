@@ -1,6 +1,4 @@
 import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
 import Submitter from './input';
 import Display from './display';
 import Adder from './adder';
@@ -91,7 +89,7 @@ class App extends React.Component {
               tags={this.state.tags}
               projects={this.state.projects}
             />
-          {/* <Display texts={this.state.texts} list={this.list} projects={this.projects}/> */}
+          <Display trees={this.state.texts} list={this.tags} projects={this.projects}/>
       </>
     );
   }

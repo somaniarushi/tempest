@@ -6,6 +6,13 @@ A main submitter class that takes input and maintains state while it isn't submi
 then 
 */
 class Submitter extends React.Component {
+
+  /*
+  Maintains the dynamic state of submitter before submissions.
+  value: Stores the note string.
+  currtag: Stores the note tag.
+  currproject: Stores the note project.
+  */
   constructor(props){
     super(props)
     this.state=({
@@ -20,14 +27,14 @@ class Submitter extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-   /*
+  /*
   Handles the selection of a tag.
   Changes currtag in state, does not make any changes to tree.
   */
  handleTagSelect(event) {
   this.state.currtag = event.target.value;
   this.setState((prevState) => ({currtag: prevState.currtag}));
-}
+  }
 
   /*
   Handles the selection of a project.
@@ -46,14 +53,20 @@ class Submitter extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  /* Handle submit. */
+  /* Handles a submission from the submitter. It
+     adds the submission to the tree, then blanks out the form. 
+  */
   handleSubmit(event) {
     this.props.submissionAdder(this.state.value, this.state.currtag, this.state.currproject)
     this.setState({value: ""})
     event.preventDefault()
   }
 
-    render() {
+  /*
+  Renders a form for submission, calling a select class to display the
+  selections for tags and projects.
+  */
+  render() {
       return (
         <form onSubmit={this.handleSubmit}>
           <label>
