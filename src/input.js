@@ -71,7 +71,7 @@ class Submitter extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             Note:
-            <input type="text" value={this.props.value} onChange={this.handleInputChange} />
+            <input type="text" value={this.state.value} onChange={this.handleInputChange} />
             <Select list={this.props.tags} group={this.state.currtag} handleSelect={this.handleTagSelect}/>
             <Select list={this.props.projects} group={this.state.currproject} handleSelect={this.handleProjectSelect}/>
           </label>
