@@ -89,7 +89,7 @@ class App extends React.Component {
               tags={this.state.tags}
               projects={this.state.projects}
             />
-          <Display trees={this.state.texts} list={this.tags} projects={this.projects}/>
+          <Display tree={this.state.tree} list={this.state.tags} projects={this.state.projects}/>
       </>
     );
   }
