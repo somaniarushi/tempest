@@ -23,47 +23,16 @@ class App extends React.Component {
     super(props);
     this.state = {
                   tree: {"default": []},
-                  value: "",
-                  currtag: "Thoughts", 
-                  currproject: "all",
                   tags: ["thoughts", "questions", "concerns", "resources", "ideas"],
                   projects: ["default"],
                   };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleTagSelect = this.handleTagSelect.bind(this);
-    this.handleProjectSelect = this.handleProjectSelect.bind(this);
     this.tagAdder = this.tagAdder.bind(this);
     this.projectAdder = this.projectAdder.bind(this);
   }
 
-  /*
-  Handles the selection of a tag.
-  Changes currtag in state, does not make any changes to tree.
-  */
-  handleTagSelect(event) {
-    this.state.currtag = event.target.value;
-    this.setState((prevState) => ({currtag: prevState.currtag}));
-  }
-
-  /*
-  Handles the selection of a project.
-  Changes currproject in state, does not make any changes to tree.
-  */
-  handleProjectSelect(event) {
-    this.state.project = event.target.value;
-    this.setState((prevState) => ({project: prevState.project}));
-  }
-
-  /*
-  Handles a change in input.
-  Changes value in state, does not make any changes to tree.
-  */
-  handleInputChange(event) {
-    this.setState({value: event.target.value});
-  }
-
+ 
   /*
   Handles a new input submission.
 
@@ -73,13 +42,11 @@ class App extends React.Component {
   category: The current tag when the note was submitted.
   children: The subsequent notes made to the current note. 
   */
-  handleSubmit(event) {
-    let note = {name: this.state.value, time: Date(), category: this.state.currtag, children: []}
-    this.state.tree[this.state.currproject].push(note)
-    this.state.value = ""
+  handleSubmit(value, currtag, currproject) {
+    let note = {name: value, time: Date(), category: currtag, children: []}
+    this.state.tree[currproject].push(note)
     this.setState(
-      (prevState) => ({tree: prevState.tree, value: prevState.value}));
-    event.preventDefault();
+      (prevState) => ({tree: prevState.tree}));
   }
 
   /*
@@ -118,16 +85,11 @@ class App extends React.Component {
               tagAdder={this.tagAdder}
               projectAdder={this.projectAdder} 
               />
+              <br></br>
           <Submitter 
-              group={this.state.tag} 
-              value={this.state.value} 
-              project={this.state.project}
-              handleChange={this.handleInputChange} 
-              handleSubmit={this.handleSubmit}
-              handleSelect={this.handleTagSelect}
-              handleProjectSelect={this.handleProjectSelect}
-              list={this.tags}
-              projects={this.projects}
+              submissionAdder={this.handleSubmit}
+              tags={this.state.tags}
+              projects={this.state.projects}
             />
           {/* <Display texts={this.state.texts} list={this.list} projects={this.projects}/> */}
       </>
