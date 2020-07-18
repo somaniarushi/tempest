@@ -1,5 +1,9 @@
 import React from 'react';
 
+/*
+    Displays a list of items, with the ability to
+    select one of them.
+*/
 const Select = (props) => {
     let input = []
     for (var item of props.list) {

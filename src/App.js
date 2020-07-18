@@ -1,64 +1,95 @@
 import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
 import Submitter from './input';
 import Display from './display';
+import Adder from './adder';
 
+/*
+The parent function that stores all information, and calls on helper functions to 
+create codestorm.
+*/
 class App extends React.Component {
+
+  /*
+    tree: A JSON dictionary that stores all the attributes of Notes given by users.
+    value: Stores the value of the blank at any point in the input process that is before submission.
+    currtag: Stores the value of the current selected tag, with which the Note will be tagged.
+    currproject: Stores the name of the current project in which the Note will be stored.
+    tags: Stores a list of all the tags.
+    projects: Stores a list of all the projects.
+  */
   constructor(props) {
     super(props);
-    this.state = {value: '', 
-                  texts: [],
-                  group: "Thoughts", 
-                  project: "all"
+    this.state = {
+                  tree: {"default": []},
+                  tags: ["thoughts", "questions", "concerns", "resources", "ideas", "all"],
+                  projects: ["default"],
                   };
-    
-    this.list = ["thoughts", "questions", "concerns", "resources", "ideas"];
-    this.projects = ["all", "codestorm", "real time color picker", "cs61a pr bot"]
-    this.handleChange = this.handleChange.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleProjectSelect = this.handleProjectSelect.bind(this);
+    this.tagAdder = this.tagAdder.bind(this);
+    this.projectAdder = this.projectAdder.bind(this);
   }
 
-  handleSelect(event) {
-    this.state.group = event.target.value;
-    this.setState((prevState) => ({group: prevState.group}));
-  }
+ 
+  /*
+  Handles a new input submission.
 
-  handleProjectSelect(event) {
-    this.state.project = event.target.value;
-    this.setState((prevState) => ({project: prevState.project}));
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    let input = {text: this.state.value, time: Date(), category: this.state.group, project: this.state.project}
-    this.state.texts.push(input)
-    this.state.value = ""
+  A new Note has attributes:
+  name: The string with which the note was submitted.
+  time: When the note was submitted.
+  category: The current tag when the note was submitted.
+  children: The subsequent notes made to the current note. 
+  */
+  handleSubmit(value, currtag, currproject) {
+    let note = {name: value, time: Date(), category: currtag, children: []}
+    this.state.tree[currproject].push(note)
     this.setState(
-      (prevState) => ({texts: prevState.texts, value: prevState.value}));
-    event.preventDefault();
+      (prevState) => ({tree: prevState.tree}));
   }
 
+  /*
+  Adds a tag to the tags list in state.
+  */
+  tagAdder(tag) {
+    if (!(this.state.tags.includes(tag))) {
+    this.setState(
+      (prevState) => ({tags: this.state.tags.concat([tag])})
+    );
+  }
+}
+
+  /*
+  Adds a project to the projects list in state. Also adds the project name to the tree.
+  */
+ projectAdder(project) {
+   if (!(this.state.projects.includes(project))) {
+     this.state.tree[project] =[]
+   this.setState(
+     (prevState) => ({
+        projects: this.state.projects.concat([project]),
+        tree: prevState.tree
+     })
+   )
+  }
+}
+
+  /*
+  The display for the project.
+  */
   render() {
     return (
         <>
+          <Adder 
+              tagAdder={this.tagAdder}
+              projectAdder={this.projectAdder} 
+              />
+              <br></br>
           <Submitter 
-              group={this.state.group} 
-              value={this.state.value} 
-              project={this.state.project}
-              handleChange={this.handleChange} 
-              handleSubmit={this.handleSubmit}
-              handleSelect={this.handleSelect}
-              handleProjectSelect={this.handleProjectSelect}
-              list={this.list}
-              projects={this.projects}
+              submissionAdder={this.handleSubmit}
+              tags={this.state.tags}
+              projects={this.state.projects}
             />
-          <Display texts={this.state.texts} list={this.list} projects={this.projects}/>
+          <Display tree={this.state.tree} list={this.state.tags} projects={this.state.projects}/>
       </>
     );
   }
