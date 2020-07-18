@@ -56,7 +56,7 @@ class Display extends React.Component {
     }
 
     /*
-    Displays the texts.
+    Displays the tree.
     */
     render() {
         const input = this.displayLinks()
