@@ -50,6 +50,9 @@ class Adder extends React.Component {
         event.preventDefault()
    }
 
+   /*
+   Renders two forms to take input on tag and project.
+   */
     render() {
       return (
         <>
