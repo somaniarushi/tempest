@@ -47,6 +47,7 @@ class Display extends React.Component {
                         <p className="text">{note.name}</p>
                         <p className="category">{note.category}</p>
                         <p className="project">{this.state.project}</p>
+                        {/* <div className="children">{this.displayChildren(note.children)}</div> */}
                     </div>
                 );
             }
@@ -55,7 +56,7 @@ class Display extends React.Component {
     }
 
     /*
-    
+    Displays the texts.
     */
     render() {
         const input = this.displayLinks()
