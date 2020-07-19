@@ -36,9 +36,10 @@ class Display extends React.Component {
     */
     displayLinks() {
         const input = []
-        console.log(this.props.tree[this.state.project].entries())
+        console.log(this.props.tree[this.state.project])
         this.props.tree[this.state.project].forEach(note => {
-            if (this.state.group === "all" || note.category === this.state.group) {
+            if (this.state.tag === "all" || note.category === this.state.tag) {
+                console.log(note)
                 const date = new Date(note.time)
                 const dateString = date.toLocaleString();
                 input.push(
