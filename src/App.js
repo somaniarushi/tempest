@@ -28,6 +28,8 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.tagAdder = this.tagAdder.bind(this);
     this.projectAdder = this.projectAdder.bind(this);
+    
+    this.appForceUpdate = this.appForceUpdate.bind(this);
   }
 
  
@@ -73,6 +75,10 @@ class App extends React.Component {
   }
 }
 
+  appForceUpdate() {
+    this.setState((prevState) => ({tree: prevState.tree}));
+  }
+
   /*
   The display for the project.
   */
@@ -89,7 +95,12 @@ class App extends React.Component {
               tags={this.state.tags}
               projects={this.state.projects}
             />
-          <Display tree={this.state.tree} list={this.state.tags} projects={this.state.projects}/>
+          <Display 
+            tree={this.state.tree} 
+            list={this.state.tags} 
+            projects={this.state.projects}
+            appForceUpdate={this.appForceUpdate}
+          />
       </>
     );
   }

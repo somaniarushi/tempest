@@ -21,6 +21,7 @@ class Display extends React.Component {
     handleSubmit(tree, value, currtag) {
         let note = {name: value, time: Date(), category: currtag, children: []}
         tree.push(note)
+        this.props.appForceUpdate()
     }
 
     /*
@@ -43,7 +44,7 @@ class Display extends React.Component {
     displayLinks() {
         const input = []
         this.props.tree[this.state.project].forEach(note => {
-            if (this.state.group === "all" || note.category === this.state.group) {
+            if (this.state.tag === "all" || note.category === this.state.tag) {
                 const date = new Date(note.time)
                 const dateString = date.toLocaleString();
                 input.push(
@@ -52,22 +53,50 @@ class Display extends React.Component {
                         <p className="text">{note.name}</p>
                         <p className="category">{note.category}</p>
                         <p className="project">{this.state.project}</p>
-                        {/* <Submitter 
+                        <Submitter 
                             submissionAdder={
                                 (value, currtag)=> {
-                                    this.handleSubmit(this.props.tree[this.state.project], value, currtag)
+                                    this.handleSubmit(note.children, value, currtag)
                                 }
                             }
-                            tags={this.state.list}
-                            projects={this.state.projects}
-                        /> */}
-                        {/* <div className="children">{this.displayChildren(note.children)}</div> */}
+                            tags={this.props.list}
+                            projects={this.props.projects}
+                        />
+                        <div className="children">{this.displayChildren(note.children, this.state.project)}</div>
                     </div>
                 );
             }
         });
-        console.log(input)
         return input
+    }
+
+    displayChildren(children, project) {
+        const input = []
+        console.log("trying to display children")
+        children.forEach(note => {
+                const date = new Date(note.time)
+                const dateString = date.toLocaleString();
+                console.log(note.name)
+                input.push(
+                    <div style={{paddingLeft: '50px'}}>
+                        <p className="date">{dateString}</p>
+                        <p className="text">{note.name}</p>
+                        <p className="category">{note.category}</p>
+                        <p className="project">{project}</p>
+                        <Submitter 
+                            submissionAdder={
+                                (value, currtag)=> {
+                                    this.handleSubmit(note.children, value, currtag)
+                                }
+                            }
+                            tags={this.props.list}
+                            projects={this.props.projects}
+                        />
+                        <div className="children">{this.displayChildren(note.children)}</div>
+                    </div>
+                );
+            });
+            return input;
     }
 
     /*
