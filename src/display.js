@@ -59,7 +59,6 @@ class Display extends React.Component {
         children.forEach(note => {
                 const date = new Date(note.time)
                 const dateString = date.toLocaleString();
-                console.log(note.name)
                 input.push(
                     <div style={{paddingLeft: '50px'}}>
                         <p className="date">{dateString}</p>
