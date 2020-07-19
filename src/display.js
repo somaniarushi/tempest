@@ -15,6 +15,12 @@ class Display extends React.Component {
         this.handleTagSelect = this.handleTagSelect.bind(this);
         this.handleProjectSelect = this.handleProjectSelect.bind(this);
         this.displayLinks = this.displayLinks.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(tree, value, currtag) {
+        let note = {name: value, time: Date(), category: currtag, children: []}
+        tree.push(note)
     }
 
     /*
@@ -36,7 +42,6 @@ class Display extends React.Component {
     */
     displayLinks() {
         const input = []
-        console.log(this.props.tree[this.state.project].entries())
         this.props.tree[this.state.project].forEach(note => {
             if (this.state.group === "all" || note.category === this.state.group) {
                 const date = new Date(note.time)
@@ -47,11 +52,21 @@ class Display extends React.Component {
                         <p className="text">{note.name}</p>
                         <p className="category">{note.category}</p>
                         <p className="project">{this.state.project}</p>
+                        {/* <Submitter 
+                            submissionAdder={
+                                (value, currtag)=> {
+                                    this.handleSubmit(this.props.tree[this.state.project], value, currtag)
+                                }
+                            }
+                            tags={this.state.list}
+                            projects={this.state.projects}
+                        /> */}
                         {/* <div className="children">{this.displayChildren(note.children)}</div> */}
                     </div>
                 );
             }
         });
+        console.log(input)
         return input
     }
 
