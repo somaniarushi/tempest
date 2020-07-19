@@ -8,6 +8,11 @@ then
 class Submitter extends React.Component {
 
   /*
+  Takes in the following props:
+  submissionAdder: something that handles a submit and adds it to the tree
+  tags: A list of tags that must be used as display.
+  projects: The list of projects for display.
+
   Maintains the dynamic state of submitter before submissions.
   value: Stores the note string.
   currtag: Stores the note tag.
@@ -17,7 +22,7 @@ class Submitter extends React.Component {
     super(props)
     this.state=({
         value: "",
-        currtag: "thoughts",
+        currtag: "all",
         currproject: "default",
     });
 

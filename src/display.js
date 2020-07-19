@@ -15,6 +15,18 @@ class Display extends React.Component {
         this.handleTagSelect = this.handleTagSelect.bind(this);
         this.handleProjectSelect = this.handleProjectSelect.bind(this);
         this.displayLinks = this.displayLinks.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    /*
+    Handles a child note. It takes in a child list, the value of the child note,
+    and the tag of the child note and attaches it to the tree. Then, it sends
+    an alert to the app to update the main tree and refresh the display.
+    */
+    handleSubmit(tree, value, currtag) {
+        let note = {name: value, time: Date(), category: currtag, children: []}
+        tree.push(note)
+        this.props.appForceUpdate()
     }
 
     /*
@@ -35,25 +47,38 @@ class Display extends React.Component {
     Displays the notes roots for the given project and tag.
     */
     displayLinks() {
+        const input = this.display(this.props.tree[this.state.project], this.state.project);
+        return input
+    }
+
+    /*
+    Recursively defined function that displays all the nodes in the tree with padding as required.
+    */
+    display(children, project) {
         const input = []
-        console.log(this.props.tree[this.state.project])
-        this.props.tree[this.state.project].forEach(note => {
-            if (this.state.tag === "all" || note.category === this.state.tag) {
-                console.log(note)
+        children.forEach(note => {
                 const date = new Date(note.time)
                 const dateString = date.toLocaleString();
                 input.push(
-                    <div>
+                    <div style={{paddingLeft: '50px'}}>
                         <p className="date">{dateString}</p>
                         <p className="text">{note.name}</p>
                         <p className="category">{note.category}</p>
-                        <p className="project">{this.state.project}</p>
-                        {/* <div className="children">{this.displayChildren(note.children)}</div> */}
+                        <p className="project">{project}</p>
+                        <Submitter 
+                            submissionAdder={
+                                (value, currtag)=> {
+                                    this.handleSubmit(note.children, value, currtag)
+                                }
+                            }
+                            tags={this.props.list}
+                            projects={this.props.projects}
+                        />
+                        <div className="children">{this.display(note.children)}</div>
                     </div>
                 );
-            }
-        });
-        return input
+            });
+            return input;
     }
 
     /*
