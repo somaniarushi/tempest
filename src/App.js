@@ -61,6 +61,10 @@ class App extends React.Component {
     let note = {name: value, time: Date(), category: currtag, children: []}
     this.state.tree[currproject].push(note)
 
+    ref.putString(JSON.stringify(this.state)).then(function(snapshot) {
+      console.log('Uploaded state!');
+    });
+
     this.setState(
       (prevState) => ({tree: prevState.tree}));
   }
