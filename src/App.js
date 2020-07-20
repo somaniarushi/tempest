@@ -2,8 +2,8 @@ import React from 'react';
 import Submitter from './input';
 import Display from './display';
 import Adder from './adder';
-import app from 'firebase/app';
-import 'firebase/storage';
+import * as app from 'firebase/app';
+import storage from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGfsVBD4I2Mhcum8ROdPRSSJrpC14uMa0",
@@ -18,7 +18,8 @@ const firebaseConfig = {
 app.initializeApp(firebaseConfig);
 
 var store = app.storage();
-var ref = store.ref();
+var parent = store.ref();
+var ref = parent.child('main');
 
 /*
 The parent function that stores all information, and calls on helper functions to 
@@ -63,9 +64,11 @@ class App extends React.Component {
     let note = {name: value, time: Date(), category: currtag, children: []}
     this.state.tree[currproject].push(note)
 
+    console.log(JSON.stringify(this.state));
+
     ref.putString(JSON.stringify(this.state)).then(function(snapshot) {
       console.log('Uploaded state!');
-    });
+    }).catch((err) => console.log("error"))
 
     this.setState(
       (prevState) => ({tree: prevState.tree}));
