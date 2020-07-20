@@ -2,6 +2,23 @@ import React from 'react';
 import Submitter from './input';
 import Display from './display';
 import Adder from './adder';
+import app from 'firebase/app';
+import 'firebase/storage';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAGfsVBD4I2Mhcum8ROdPRSSJrpC14uMa0",
+  authDomain: "codestormstore.firebaseapp.com",
+  databaseURL: "https://codestormstore.firebaseio.com",
+  projectId: "codestormstore",
+  storageBucket: "codestormstore.appspot.com",
+  messagingSenderId: "1083838522362",
+  appId: "1:1083838522362:web:1b118ac2cd28ec1c12fa43",
+  measurementId: "G-LEKY5V4F1P"
+};
+app.initializeApp(firebaseConfig);
+
+var store = app.storage();
+var ref = store.ref();
 
 /*
 The parent function that stores all information, and calls on helper functions to 
@@ -43,6 +60,7 @@ class App extends React.Component {
   handleSubmit(value, currtag, currproject) {
     let note = {name: value, time: Date(), category: currtag, children: []}
     this.state.tree[currproject].push(note)
+
     this.setState(
       (prevState) => ({tree: prevState.tree}));
   }
