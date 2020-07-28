@@ -35,6 +35,8 @@ class App extends React.Component {
 
     this.tagAdder = this.tagAdder.bind(this);
     this.projectAdder = this.projectAdder.bind(this);
+    this.tagRemover = this.tagRemover.bind(this);
+    this.projectRemover = this.projectRemover.bind(this);
     
     this.appForceUpdate = this.appForceUpdate.bind(this);
   }
@@ -81,6 +83,17 @@ class App extends React.Component {
   }
 }
 
+tagRemover(tag) {
+  delete this.state.tags[this.state.tags.indexOf(tag)];
+  console.log(this.state.tags)
+  this.setState((prevState) => ({tags: prevState.tags}));
+}
+
+projectRemover(proj) {
+  delete this.state.projects[this.state.projects.indexOf(proj)];
+  this.setState((prevState) => ({projects: prevState.projects}));
+}
+
 appForceUpdate() {
     this.setState((prevState) => ({tree: prevState.tree}));
     localStorage.setItem('state', JSON.stringify(this.state));
@@ -95,6 +108,8 @@ appForceUpdate() {
           <Adder 
               tagAdder={this.tagAdder}
               projectAdder={this.projectAdder} 
+              handleTagDelete={this.tagRemover}
+              handleProjectDelete={this.projectRemover}
               />
               <br></br>
 

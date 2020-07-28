@@ -1,4 +1,5 @@
 import React from 'react';
+import Deleter from './delete';
 
 /*
 Creates the functionality of adding a category or a project to the tree.
@@ -62,6 +63,7 @@ class Adder extends React.Component {
             <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
           </label>
           <input type="submit" value="Submit" />
+          {/* <Deleter handleDelete={() => this.props.handleTagDelete(this.state.tag)} /> */}
         </form>
         <form onSubmit={this.projSubmit}>
             <label>
@@ -69,6 +71,7 @@ class Adder extends React.Component {
                 <input type="text" value={this.state.project} onChange={this.handleProjectChange} />
             </label>
             <input type="submit" value="Submit" />
+            {/* <Deleter handleDelete={() => this.props.handleProjectDelete(this.state.project)} /> */}
         </form>
         </>
       );
