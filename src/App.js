@@ -16,16 +16,18 @@ class App extends React.Component {
     currproject: Stores the name of the current project in which the Note will be stored.
     tags: Stores a list of all the tags.
     projects: Stores a list of all the projects.
+
+    State is saved in localStorage on every submission.
   */
   constructor(props) {
     super(props);
     this.state = {
-                  tree: {"default": []},
+                  tree: {"default": {}},
                   tags: ["thoughts", "questions", "concerns", "resources", "ideas", "all"],
                   projects: ["default"],
                   };
     
-    if (localStorage.getItem('tree') !== undefined) {
+    if (localStorage.getItem('state') !== null) {
       this.state = JSON.parse(localStorage.getItem('state'));
     }
 
@@ -48,8 +50,8 @@ class App extends React.Component {
   children: The subsequent notes made to the current note. 
   */
   handleSubmit(value, currtag, currproject) {
-    let note = {name: value, time: Date(), category: currtag, children: []}
-    this.state.tree[currproject].push(note)
+    let note = {time: Date(), category: currtag, children: {}}
+    this.state.tree[currproject][value] = note;
     this.appForceUpdate();
   }
 
@@ -82,7 +84,6 @@ class App extends React.Component {
 appForceUpdate() {
     this.setState((prevState) => ({tree: prevState.tree}));
     localStorage.setItem('state', JSON.stringify(this.state));
-    console.log(localStorage.getItem('state'));
   }
 
   /*
@@ -96,11 +97,13 @@ appForceUpdate() {
               projectAdder={this.projectAdder} 
               />
               <br></br>
+
           <Submitter 
               submissionAdder={this.handleSubmit}
               tags={this.state.tags}
               projects={this.state.projects}
             />
+
           <Display 
             tree={this.state.tree} 
             list={this.state.tags} 
