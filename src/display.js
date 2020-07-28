@@ -61,6 +61,7 @@ class Display extends React.Component {
                 const dateString = date.toLocaleString();
                 input.push(
                     <div style={{paddingLeft: '50px'}}>
+                        <button>Delete</button>
                         <p className="date">{dateString}</p>
                         <p className="text">{note.name}</p>
                         <p className="category">{note.category}</p>

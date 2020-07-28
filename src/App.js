@@ -24,8 +24,13 @@ class App extends React.Component {
                   tags: ["thoughts", "questions", "concerns", "resources", "ideas", "all"],
                   projects: ["default"],
                   };
+    
+    if (localStorage.getItem('tree') !== undefined) {
+      this.state = JSON.parse(localStorage.getItem('state'));
+    }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+
     this.tagAdder = this.tagAdder.bind(this);
     this.projectAdder = this.projectAdder.bind(this);
     
@@ -45,8 +50,7 @@ class App extends React.Component {
   handleSubmit(value, currtag, currproject) {
     let note = {name: value, time: Date(), category: currtag, children: []}
     this.state.tree[currproject].push(note)
-    this.setState(
-      (prevState) => ({tree: prevState.tree}));
+    this.appForceUpdate();
   }
 
   /*
@@ -75,8 +79,10 @@ class App extends React.Component {
   }
 }
 
-  appForceUpdate() {
+appForceUpdate() {
     this.setState((prevState) => ({tree: prevState.tree}));
+    localStorage.setItem('state', JSON.stringify(this.state));
+    console.log(localStorage.getItem('state'));
   }
 
   /*
