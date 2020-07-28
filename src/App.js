@@ -37,11 +37,31 @@ class App extends React.Component {
   */
   constructor(props) {
     super(props);
+
+    var stat = {}
+    ref.getDownloadURL().then((url) => {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      var blob;
+      xhr.onload = function(event) {
+        blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+
+      const reader = new FileReader();
+      stat = JSON.parse(reader.readAsText(blob))
+      console.log(stat)
+    })
+    .catch(function(error) {
+      console.log("fuck")
+    });
+
     this.state = {
-                  tree: {"default": []},
-                  tags: ["thoughts", "questions", "concerns", "resources", "ideas", "all"],
-                  projects: ["default"],
-                  };
+      tree: {"default": []},
+      tags: ["thoughts", "questions", "concerns", "resources", "ideas", "all"],
+      projects: ["default"],
+      };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.tagAdder = this.tagAdder.bind(this);
