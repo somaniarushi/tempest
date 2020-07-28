@@ -37,8 +37,7 @@ class Submitter extends React.Component {
   Changes currtag in state, does not make any changes to tree.
   */
  handleTagSelect(event) {
-  this.state.currtag = event.target.value;
-  this.setState((prevState) => ({currtag: prevState.currtag}));
+  this.setState((prevState) => ({currtag: event.target.value}));
   }
 
   /*
@@ -46,8 +45,7 @@ class Submitter extends React.Component {
   Changes currproject in state, does not make any changes to tree.
   */
   handleProjectSelect(event) {
-    this.state.currproject = event.target.value;
-    this.setState((prevState) => ({currproject: prevState.currproject}));
+    this.setState((prevState) => ({currproject: event.target.value}));
   }
 
   /*

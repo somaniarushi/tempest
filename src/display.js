@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from './selectmenu';
 import Submitter from './input';
+import Deleter from './delete';
 
 /*
 Manages the display of the roots of our tree.
@@ -16,6 +17,7 @@ class Display extends React.Component {
         this.handleProjectSelect = this.handleProjectSelect.bind(this);
         this.displayLinks = this.displayLinks.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     /*
@@ -24,10 +26,22 @@ class Display extends React.Component {
     an alert to the app to update the main tree and refresh the display.
     */
     handleSubmit(tree, value, currtag) {
-        let note = {name: value, time: Date(), category: currtag, children: []}
-        tree.push(note)
+        let note = {time: Date(), category: currtag, children: {}}
+        tree[value] = note
         this.props.appForceUpdate()
     }
+
+    /*
+    Handles the deletion of a note.
+    */
+   handleDelete(tree, note, val) {
+        if (val === null) {
+            delete tree.children[note]
+        } else {
+            delete tree[val][note]
+        }
+       this.props.appForceUpdate();
+   }
 
     /*
     Handles the updation of a tag display.
@@ -47,37 +61,41 @@ class Display extends React.Component {
     Displays the notes roots for the given project and tag.
     */
     displayLinks() {
-        const input = this.display(this.props.tree[this.state.project], this.state.project);
+        const input = this.display(this.props.tree[this.state.project], this.state.project, this.props.tree, this.state.project);
         return input
     }
 
     /*
     Recursively defined function that displays all the nodes in the tree with padding as required.
     */
-    display(children, project) {
+    display(children, project, parentTree, parentVal) {
         const input = []
-        children.forEach(note => {
-                const date = new Date(note.time)
-                const dateString = date.toLocaleString();
-                input.push(
+        for(var note in children) {
+            const date = new Date(children[note].time)
+            const dateString = date.toLocaleString();
+            input.push(
                     <div style={{paddingLeft: '50px'}}>
-                        <p className="date">{dateString}</p>
-                        <p className="text">{note.name}</p>
-                        <p className="category">{note.category}</p>
-                        <p className="project">{project}</p>
-                        <Submitter 
-                            submissionAdder={
-                                (value, currtag)=> {
-                                    this.handleSubmit(note.children, value, currtag)
+                        <Deleter handleDelete={
+                             () => this.handleDelete(parentTree, note, parentVal)
+                        }/>
+
+                    <p className="date">{dateString}</p>
+                    <p className="text">{note}</p>
+                    <p className="category">{children[note].category}</p>
+                    <p className="project">{project}</p>
+                    <Submitter 
+                        submissionAdder={
+                            (value, currtag)=> {
+                                this.handleSubmit(children[note].children, value, currtag)
                                 }
-                            }
-                            tags={this.props.list}
-                            projects={this.props.projects}
-                        />
-                        <div className="children">{this.display(note.children)}</div>
-                    </div>
+                        }
+                        tags={this.props.list}
+                        projects={this.props.projects}
+                    />
+                    <div className="children">{this.display(children[note].children, this.state.project, children[note], null)}</div>
+                </div>
                 );
-            });
+            }
             return input;
     }
 
