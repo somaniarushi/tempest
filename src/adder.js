@@ -1,8 +1,9 @@
 import React from 'react';
 import Deleter from './delete';
+import styled from 'styled-components';
 
 /*
-Creates the functionality of adding a category or a project to the tree.
+Creates the functionality of adding a tag or a project to the tree.
 */
 class Adder extends React.Component {
     /*
@@ -10,7 +11,11 @@ class Adder extends React.Component {
     */
     constructor(props) {
         super(props);
-        this.state = {tag: this.props.intialtagvalue, project: this.props.initialprojectvalue}
+        this.state = {
+          tag: this.props.initialTagValue, 
+          project: this.props.initialProjectValue
+        }
+
         this.handleTagChange = this.handleTagChange.bind(this);
         this.handleProjectChange = this.handleProjectChange.bind(this);
         this.projSubmit = this.projSubmit.bind(this);
@@ -38,7 +43,7 @@ class Adder extends React.Component {
     */
    tagSubmit(event) {
     this.props.tagAdder(this.state.tag);
-    this.setState({tag: ""});
+    this.setState({tag: this.props.initialTagValue});
     event.preventDefault()
    }
 
@@ -47,7 +52,7 @@ class Adder extends React.Component {
    */
    projSubmit(event) {
         this.props.projectAdder(this.state.project)
-        this.setState({project: ""});
+        this.setState({project: this.props.initialProjectValue});
         event.preventDefault()
    }
 
@@ -57,26 +62,49 @@ class Adder extends React.Component {
     render() {
       return (
         <>
-        <form onSubmit={this.tagSubmit}>
-          <label>
-            Tag:
-            <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
-          </label>
-          <input type="submit" value="Submit" />
-          {/* <Deleter handleDelete={() => this.props.handleTagDelete(this.state.tag)} /> */}
-        </form>
-        <form onSubmit={this.projSubmit}>
-            <label>
-                Project:
-                <input type="text" value={this.state.project} onChange={this.handleProjectChange} />
-            </label>
-            <input type="submit" value="Submit" />
-            {/* <Deleter handleDelete={() => this.props.handleProjectDelete(this.state.project)} /> */}
-        </form>
+        <Form onSubmit={this.tagSubmit}>
+          <Label>
+            <Input type="text" value={this.state.tag} onChange={this.handleTagChange} placeholder="add tag"/>
+          </Label>
+          <Submit type="submit" value=" + " />
+        </Form>
+        <Form onSubmit={this.projSubmit}>
+            <Label>
+                <Input type="text" value={this.state.project} onChange={this.handleProjectChange} placeholder="add project"/>
+            </Label>
+            <Submit type="submit" value=" + " />
+        </Form>
         </>
       );
     }
   }
+
+  /*
+    A styled component for a blank form entry.
+  */
+  const Form = styled.form`
+    padding: 0.5em;
+    padding-left: 80%;
+  `
+
+  const Label = styled.label`
+    padding: 0.3em;
+  `
+  const Input = styled.input`
+    padding: 0.3em;
+    background-color: rgb(240, 240, 240);
+    border: solid 1px rgba(145, 145, 145, 0.537);
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  `
+
+  const Submit = styled.input`
+  padding: 0.3em;
+  background-color: rgb(193, 212, 248, 0.8);
+  border: none;
+  border-radius: 5px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+`
 
 
 

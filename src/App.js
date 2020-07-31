@@ -110,6 +110,8 @@ appForceUpdate() {
               projectAdder={this.projectAdder} 
               handleTagDelete={this.tagRemover}
               handleProjectDelete={this.projectRemover}
+              initialTagValue=""
+              initialProjectValue=""
               />
               <br></br>
 
