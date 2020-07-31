@@ -87,11 +87,15 @@ class Adder extends React.Component {
   }
 
   /*
-    A styled component for a blank form entry.
+    Styled Components.
   */
+
   const Form = styled.form`
     padding: 0.5em;
-    padding-left: 80%;
+    padding-left: 82%;
+    :first-of-type {
+      padding-top: 1em;
+    }
   `
 
   const Label = styled.label`
@@ -99,18 +103,18 @@ class Adder extends React.Component {
   `
   const Input = styled.input`
     padding: 0.3em;
-    background-color: rgb(240, 240, 240);
-    border: solid 1px rgba(145, 145, 145, 0.537);
+    background-color: rgb(240, 240, 240, 0.5);
+    border: solid 1px rgb(200, 200, 200, 0.5);
     border-radius: 5px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   `
 
   const Submit = styled.input`
-  padding: 0.3em;
-  background-color: rgb(193, 212, 248, 0.8);
-  border: none;
-  border-radius: 5px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 0.3em;
+    background-color: rgb(193, 212, 248, 0.8);
+    border: none;
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 `
 
 
