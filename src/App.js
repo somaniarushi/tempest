@@ -52,7 +52,7 @@ class App extends React.Component {
   children: The subsequent notes made to the current note. 
   */
   handleSubmit(value, currtag, currproject) {
-    let note = {time: Date(), category: currtag, children: {}}
+    let note = {time: Date(), category: currtag, checked: true, children: {}}
     this.state.tree[currproject][value] = note;
     this.appForceUpdate();
   }

@@ -13,7 +13,7 @@ class Display extends React.Component {
     */
     constructor(props) {
         super(props);
-        this.state = { tag: "all", project: "default" };
+        this.state = { tag: "all", project: "default"};
         this.handleTagSelect = this.handleTagSelect.bind(this);
         this.handleProjectSelect = this.handleProjectSelect.bind(this);
         this.displayLinks = this.displayLinks.bind(this);
@@ -27,7 +27,7 @@ class Display extends React.Component {
     an alert to the app to update the main tree and refresh the display.
     */
     handleSubmit(tree, value, currtag) {
-        let note = {time: Date(), category: currtag, children: {}}
+        let note = {time: Date(), category: currtag, checked: true, children: {}}
         tree[value] = note
         this.props.appForceUpdate()
     }
@@ -78,11 +78,17 @@ class Display extends React.Component {
                     <div style={{paddingLeft: '50px'}}>
                         <DateTimeDisplay>{dateString}</DateTimeDisplay>
                         <TextDisplay>{note}</TextDisplay>
+                        <br></br>
                         <TagDisplay>{children[note].category}</TagDisplay>
                         <ProjectDisplay>{project}</ProjectDisplay>
                         <Deleter handleDelete={
                                 () => this.handleDelete(parentTree, note, parentVal)
                             }/>
+                        <Checkbox type="checkbox" defaultChecked="on" onChange={(e) => {
+                            children[note].checked=e.target.checked;
+                            this.props.appForceUpdate();
+                        }} />
+                        <CheckBoxDisplay>Show Children</CheckBoxDisplay>
                         <Submitter 
                             submissionAdder={
                                 (value, currtag)=> {
@@ -92,7 +98,8 @@ class Display extends React.Component {
                             tags={this.props.list}
                             projects={this.props.projects}
                         />
-                    <div className="children">{this.display(children[note].children, this.state.project, children[note], null)}</div>
+                    {children[note].checked &&
+                    <div className="children">{this.display(children[note].children, this.state.project, children[note], null)}</div>}
                 </div>
                 );
             }
@@ -121,7 +128,7 @@ const DateTimeDisplay = styled.p`
 `
     
 const ProjectDisplay = styled.p`
-    padding: 0.6em;
+    padding: 0.5em;
     background-color: rgb(188, 225, 188, 0.4);
     border-radius: 4px;
     display: inline;
@@ -132,7 +139,7 @@ const ProjectDisplay = styled.p`
 `
 
 const TagDisplay = styled.p`
-    padding: 0.6em;
+    padding: 0.5em;
     background-color: rgb(188, 225, 188, 0.4);
     border-radius: 4px;
     display: inline;
@@ -144,9 +151,24 @@ const TagDisplay = styled.p`
 
 const TextDisplay = styled.p`
     padding-left: 0.5em;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 0em;
+    margin-top: 0.5em;
+    margin-bottom: 0.3em;
     font-family: font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+`
+
+const Checkbox = styled.input`
+    margin-left: 1.5em;
+    margin-top: 0.6em;
+    display: block;
+    display: inline;
+`
+
+const CheckBoxDisplay = styled.p`
+    padding-left: 0.5em;
+    font-size: 0.7em;
+    display: inline;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 `
 
 export default Display

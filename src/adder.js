@@ -43,7 +43,6 @@ class Adder extends React.Component {
     */
    tagSubmit(event) {
      if (this.state.tag !== "") {
-       console.log("i'm in")
       this.props.tagAdder(this.state.tag);
       this.setState({tag: this.props.initialTagValue});
       event.preventDefault()
