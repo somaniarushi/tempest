@@ -73,7 +73,7 @@ class App extends React.Component {
   */
  projectAdder(project) {
    if (!(this.state.projects.includes(project))) {
-     this.state.tree[project] =[]
+     this.state.tree[project] = {}
    this.setState(
      (prevState) => ({
         projects: this.state.projects.concat([project]),
