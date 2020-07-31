@@ -42,18 +42,25 @@ class Adder extends React.Component {
     Handles a submission of a tag, and sends it to be added to our state.
     */
    tagSubmit(event) {
-    this.props.tagAdder(this.state.tag);
-    this.setState({tag: this.props.initialTagValue});
-    event.preventDefault()
+     if (this.state.tag !== "") {
+       console.log("i'm in")
+      this.props.tagAdder(this.state.tag);
+      this.setState({tag: this.props.initialTagValue});
+      event.preventDefault()
+     }
+     event.preventDefault()
    }
 
    /*
    Handles a submission of a new project, and sends it to be added to our state.
    */
    projSubmit(event) {
+     if (this.state.project !== "") {
         this.props.projectAdder(this.state.project)
         this.setState({project: this.props.initialProjectValue});
         event.preventDefault()
+     }
+     event.preventDefault()
    }
 
    /*
