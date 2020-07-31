@@ -77,7 +77,7 @@ class Display extends React.Component {
             input.push(
                     <div style={{paddingLeft: '50px'}}>
                         <DateTimeDisplay>{dateString}</DateTimeDisplay>
-                        <p className="text">{note}</p>
+                        <TextDisplay>{note}</TextDisplay>
                         <TagDisplay>{children[note].category}</TagDisplay>
                         <ProjectDisplay>{project}</ProjectDisplay>
                         <Deleter handleDelete={
@@ -140,6 +140,13 @@ const TagDisplay = styled.p`
     padding-right: 1em;
     padding-left: 1em;
     margin: 0.5em;
+`
+
+const TextDisplay = styled.p`
+    padding-left: 0.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    font-family: font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 `
 
 export default Display
