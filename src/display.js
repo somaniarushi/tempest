@@ -2,6 +2,7 @@ import React from 'react';
 import Select from './selectmenu';
 import Submitter from './input';
 import Deleter from './delete';
+import styled from 'styled-components';
 
 /*
 Manages the display of the roots of our tree.
@@ -72,26 +73,25 @@ class Display extends React.Component {
         const input = []
         for(var note in children) {
             const date = new Date(children[note].time)
-            const dateString = date.toLocaleString();
+            const dateString = date.toLocaleTimeString();
             input.push(
                     <div style={{paddingLeft: '50px'}}>
+                        <DateTimeDisplay>{dateString}</DateTimeDisplay>
+                        <p className="text">{note}</p>
+                        <TagDisplay>{children[note].category}</TagDisplay>
+                        <ProjectDisplay>{project}</ProjectDisplay>
                         <Deleter handleDelete={
-                             () => this.handleDelete(parentTree, note, parentVal)
-                        }/>
-
-                    <p className="date">{dateString}</p>
-                    <p className="text">{note}</p>
-                    <p className="category">{children[note].category}</p>
-                    <p className="project">{project}</p>
-                    <Submitter 
-                        submissionAdder={
-                            (value, currtag)=> {
-                                this.handleSubmit(children[note].children, value, currtag)
-                                }
-                        }
-                        tags={this.props.list}
-                        projects={this.props.projects}
-                    />
+                                () => this.handleDelete(parentTree, note, parentVal)
+                            }/>
+                        <Submitter 
+                            submissionAdder={
+                                (value, currtag)=> {
+                                    this.handleSubmit(children[note].children, value, currtag)
+                                    }
+                            }
+                            tags={this.props.list}
+                            projects={this.props.projects}
+                        />
                     <div className="children">{this.display(children[note].children, this.state.project, children[note], null)}</div>
                 </div>
                 );
@@ -113,5 +113,33 @@ class Display extends React.Component {
         );
     }
 }
+
+const DateTimeDisplay = styled.p`
+    font-size: 0.6em;
+    padding: 0.6em;
+    display: none;
+`
+    
+const ProjectDisplay = styled.p`
+    padding: 0.6em;
+    background-color: rgb(188, 225, 188, 0.4);
+    border-radius: 4px;
+    display: inline;
+    font-size: 0.7em;
+    padding-right: 1em;
+    padding-left: 1em;
+    margin: 0.5em;
+`
+
+const TagDisplay = styled.p`
+    padding: 0.6em;
+    background-color: rgb(188, 225, 188, 0.4);
+    border-radius: 4px;
+    display: inline;
+    font-size: 0.7em;
+    padding-right: 1em;
+    padding-left: 1em;
+    margin: 0.5em;
+`
 
 export default Display

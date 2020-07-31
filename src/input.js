@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from './selectmenu'
+import styled from 'styled-components';
 
 /*
 A main submitter class that takes input and maintains state while it isn't submitted,
@@ -71,18 +72,52 @@ class Submitter extends React.Component {
   */
   render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Note:
-            <input type="text" value={this.state.value} onChange={this.handleInputChange} />
-            <Select list={this.props.tags} group={this.state.currtag} handleSelect={this.handleTagSelect}/>
-            <Select list={this.props.projects} group={this.state.currproject} handleSelect={this.handleProjectSelect}/>
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <Form onSubmit={this.handleSubmit}>
+          <Label>
+            <Input type="text" value={this.state.value} onChange={this.handleInputChange} placeholder="add note"/>
+          </Label>
+          <Select list={this.props.tags} group={this.state.currtag} handleSelect={this.handleTagSelect}/>
+          <Select list={this.props.projects} group={this.state.currproject} handleSelect={this.handleProjectSelect}/>
+          <Submit type="submit" value=" + " />
+        </Form>
       );
     }
   }
+
+  
+  
+  const Form = styled.form`
+  padding: 0.5em;
+  :first-of-type {
+    padding-top: 1em;
+  }
+`
+
+const Label = styled.label`
+    padding: 0.5em;
+  `
+  const Input = styled.textarea`
+    resize: none;
+    width: 25em;
+    height: 3em;
+    padding-top: 0.5em;
+    padding-left: 0.5em;
+    background-color: rgb(240, 240, 240, 0.5);
+    border: solid 1px rgb(200, 200, 200, 0.5);
+    border-radius: 8px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  `
+
+  const Submit = styled.input`
+    margin: 0.3em;
+    padding: 0.3em;
+    margin-top: 0.6em;
+    vertical-align: top;
+    background-color: rgb(193, 212, 248, 0.8);
+    border: none;
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+`
 
 
 
