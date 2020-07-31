@@ -27,7 +27,7 @@ class Display extends React.Component {
     an alert to the app to update the main tree and refresh the display.
     */
     handleSubmit(tree, value, currtag) {
-        let note = {time: Date(), category: currtag, checked: true, children: {}}
+        let note = {time: Date(), category: currtag, checked: true, child: true, children: {}}
         tree[value] = note
         this.props.appForceUpdate()
     }
@@ -78,7 +78,6 @@ class Display extends React.Component {
                     <div style={{paddingLeft: '50px'}}>
                         <DateTimeDisplay>{dateString}</DateTimeDisplay>
                         <TextDisplay>{note}</TextDisplay>
-                        <br></br>
                         <TagDisplay>{children[note].category}</TagDisplay>
                         <ProjectDisplay>{project}</ProjectDisplay>
                         <Deleter handleDelete={
@@ -97,8 +96,10 @@ class Display extends React.Component {
                             }
                             tags={this.props.list}
                             projects={this.props.projects}
+                            project={project}
+                            child={true}
                         />
-                    {children[note].checked &&
+                    { children[note].checked &&
                     <div className="children">{this.display(children[note].children, this.state.project, children[note], null)}</div>}
                 </div>
                 );

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 A main submitter class that takes input and maintains state while it isn't submitted,
 then 
 */
-class Submitter extends React.Component {
+class ChildSubmitter extends React.Component {
 
   /*
   Takes in the following props:
@@ -24,7 +24,6 @@ class Submitter extends React.Component {
     this.state=({
         value: "",
         currtag: "all",
-        currproject: "default",
     });
 
     this.handleTagSelect = this.handleTagSelect.bind(this);
@@ -42,14 +41,6 @@ class Submitter extends React.Component {
   }
 
   /*
-  Handles the selection of a project.
-  Changes currproject in state, does not make any changes to tree.
-  */
-  handleProjectSelect(event) {
-    this.setState({currproject: event.target.value});
-  }
-
-  /*
   Handles a change in input.
   Changes value in state, does not make any changes to tree.
   */
@@ -61,7 +52,7 @@ class Submitter extends React.Component {
      adds the submission to the tree, then blanks out the form. 
   */
   handleSubmit(event) {
-    this.props.submissionAdder(this.state.value, this.state.currtag, this.state.currproject)
+    this.props.submissionAdder(this.state.value, this.state.currtag, this.props.project)
     this.setState({value: ""})
     event.preventDefault()
   }
@@ -77,10 +68,6 @@ class Submitter extends React.Component {
             <Input type="text" value={this.state.value} onChange={this.handleInputChange} placeholder="add note"/>
           </Label>
           <Select list={this.props.tags} group={this.state.currtag} handleSelect={this.handleTagSelect}/>
-          {
-            !this.props.child &&
-              <Select list={this.props.projects} group={this.state.currproject} handleSelect={this.handleProjectSelect}/>
-          }
           <Submit type="submit" value=" + " />
         </Form>
       );
@@ -124,4 +111,4 @@ const Label = styled.label`
 
 
 
-export default Submitter
+export default ChildSubmitter
