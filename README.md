@@ -1,15 +1,15 @@
-## Abstract
+# Tempest
 
-What if there was a way to arrange the way you think? To be able to organise your idea, connect them, sort them, isolate them, and thread them together? This is the idea behind Codestorm. 
+Arrange the way you think.
 
-In its current iteration, codestorm operates like a tree -- with a root node and branching options. The idea is to be able to start a project, add categories to it, and create a flow of thought with them. Every thought can further have ideas, every idea resources, and every resource concerns.
+## How Does Tempest Work?
 
-Eventually, I'd like to be able to customize everything Every project may be a unique combination of thoughts and curiosities, with its own tags. I'd also like the ability to "connect" two disjoint ideas and to be able to move them around into different trees, but that's clearly a later down the line idea.
+Thoughts, at first glance, are like storms –– chaotic and messy and unpredictable. Pick one thought and tagging tugging, however, and you'll find that each idea has sub ideas and sub sub ideas and so on. The flow of thought operates like a tree –– with roots and branches and connections. Every thought can further have ideas, every idea resources, and every resource concerns. 
 
-It is very important to me to get this right. There are few projects that I think of that I do not find some valid substitute for. This is one of them. I do not know how long this is take, or what this is eventually become, but I am determined to bring it to life. 
+This is the idea that Tempest leverages –– start a project, create your own tags, and add thoughts, resources, concerns, bugs, and ideas as you go. If you're tired with using a thought journal, with typing out ideas in one unsearchable google doc, with forgetting important details scattered across apps and bookmarks, then this is the app for you.
 
 ## Demo 
-Check it out at [storm.amks.me](https://storm.arushisomani.me)!
+Start your own Tempest at [storm.amks.me](https://storm.arushisomani.me)!
 ![](./demo/ss.png)
 
 ###### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
